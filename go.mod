@@ -1,4 +1,4 @@
-module przemko-robakowski.pl/godude
+module github.com/probakowski/godude
 
 go 1.18
 
