@@ -7,4 +7,4 @@ jobs:
     runs-on: macos-15
     steps:
       - name: Check path
-        run: bash -c 'ls -la /usr/bin/llvm-gcc; llvm-gcc --version; find ${PATH//:/\/ } -name llvm-*; ls $(brew --prefix llvm@18)/bin/; ls $(brew --prefix llvm)/bin/ true'
+        run: bash -c 'brew list | grep llvm'
