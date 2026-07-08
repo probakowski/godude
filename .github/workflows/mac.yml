@@ -7,4 +7,4 @@ jobs:
     runs-on: macos-15-xlarge
     steps:
       - name: Check path
-        run: bash -c 'find ${PATH//:/\/ } -name llvm-*'
+        run: bash -c 'ls -la /usr/bin/llvm-gcc; llvm-gcc --version; find ${PATH//:/\/ } -name llvm-*; true'
