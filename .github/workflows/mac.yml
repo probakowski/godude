@@ -7,4 +7,4 @@ jobs:
     runs-on: windows-2022
     steps:
       - name: Check path
-        run: vswhere.exe -latest -requires Microsoft.VisualStudio.Component.VC.Llvm.Clang -property installationPath
+        run: a.ps1
