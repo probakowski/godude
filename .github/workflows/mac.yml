@@ -3,8 +3,8 @@ on: push
 
 jobs:
   build:
-    name: Build on Mac OS
-    runs-on: macos-15
+    name: Build on Windows
+    runs-on: windows-2022
     steps:
       - name: Check path
-        run: bash -c 'brew list | grep llvm'
+        run: vswhere.exe -latest -requires Microsoft.VisualStudio.Component.VC.Llvm.Clang -property installationPath
