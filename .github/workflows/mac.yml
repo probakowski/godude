@@ -7,4 +7,4 @@ jobs:
     runs-on: windows-2022
     steps:
       - name: Check path
-        run: ./a.ps1
+        run: . "./a.ps1"
