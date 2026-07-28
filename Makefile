@@ -20,7 +20,7 @@ build-ironrdp-wasm:  ensure-llvm
 	$(CC) --version
 	$(AR) --version
 	rustup target add wasm32-unknown-unknown
-	CC=$(CC) AR=$(AR) cargo build --target wasm32-unknown-unknown
+	CC="$(CC)" AR="$(AR)" cargo build --target wasm32-unknown-unknown
 
 
 .PHONY: ensure-llvm
