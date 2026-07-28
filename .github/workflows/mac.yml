@@ -9,5 +9,4 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check path
         run: |
-          ls
-          . "./a.ps1"
+          make build
