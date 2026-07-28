@@ -15,10 +15,11 @@ HOST_OS := unknown
 endif
 
 .PHONY: build-ironrdp-wasm
-build-ironrdp-wasm:
+build-ironrdp-wasm:  ensure-llvm
 	@echo "host os: $(HOST_OS), $(OS), $(HOST_UNAME)"
 	$(CC) --version
 	$(AR) --version
+	cargo build --target wasm32-unknown-unknown
 
 
 .PHONY: ensure-llvm
