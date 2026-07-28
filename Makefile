@@ -19,6 +19,7 @@ build-ironrdp-wasm:  ensure-llvm
 	@echo "host os: $(HOST_OS), $(OS), $(HOST_UNAME)"
 	$(CC) --version
 	$(AR) --version
+	rustup target add wasm32-unknown-unknown
 	cargo build --target wasm32-unknown-unknown
 
 
