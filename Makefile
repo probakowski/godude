@@ -14,6 +14,49 @@ else
 HOST_OS := unknown
 endif
 
-.PHONY: build
-build:
+.PHONY: build-ironrdp-wasm
+build-ironrdp-wasm:
 	@echo "host os: $(HOST_OS), $(OS), $(HOST_UNAME)"
+	$(CC) --version
+	$(AR) --version
+
+
+.PHONY: ensure-llvm
+ifeq ($(HOST_OS),darwin)
+BREW_DIR = $(shell brew --prefix)
+LLVM_PREFIX = $(shell brew list | grep llvm | head -n 1)
+LLVM_DIR = $(shell brew --prefix $(LLVM_PREFIX))
+# Prevent these from being exported and expanded for every recipe.
+unexport BREW_DIR LLVM_PREFIX LLVM_DIR
+
+# The ironrdp WASM build needs clang/llvm-ar.
+# These are applied as target-specific variables so
+# brew is only invoked when necessary and so that
+# CC and AR are only overwritten for WASM compilation.
+build-ironrdp-wasm: override CC = $(LLVM_DIR)/bin/clang
+build-ironrdp-wasm: override AR = $(LLVM_DIR)/bin/llvm-ar
+
+ensure-llvm:
+	@echo "ensure-llvm brew"
+	@if [[ "$(BREW_DIR)" = "$(LLVM_DIR)" ]]; then \
+		echo "llvm is required, please run 'brew install llvm' and add '/opt/homebrew/opt/llvm/bin' at the start of PATH variable"; \
+		exit 1; \
+	fi
+
+else ifeq ($(HOST_OS),windows)
+LLVM_DIR=$(shell vswhere.exe -latest -requires Microsoft.VisualStudio.Component.VC.Llvm.Clang -property installationPath)
+unexport LLVM_DIR
+build-ironrdp-wasm: override CC = $(LLVM_DIR)/VC/Tools/Llvm/x64/bin/clang
+build-ironrdp-wasm: override AR = $(LLVM_DIR)/VC/Tools/Llvm/x64/bin/llvm-ar
+
+ensure-llvm:
+	@echo "ensure-llvm windows"
+	@if [[ "x" = "x$(LLVM_DIR)" ]]; then \
+		echo "llvm is required, please install Visual Studio with LLVM component"; \
+		exit 1; \
+	fi
+
+else
+ensure-llvm:
+	@echo "ensure-llvm noop $(OS), $(HOST_OS)"
+endif

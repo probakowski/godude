@@ -2,11 +2,28 @@ name: mac.yml
 on: push
 
 jobs:
-  build:
+  build-win:
     name: Build on Windows
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
       - name: Check path
         run: |
-          make build
+          make build-ironrdp-wasm
+  build-mac:
+    name: Build on Mac
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check path
+        run: |
+          make build-ironrdp-wasm
+  build-linux:
+    name: Build on Mac
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check path
+        run: |
+          make build-ironrdp-wasm
+
