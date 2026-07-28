@@ -1,0 +1,6 @@
+[package]
+name = "godude"
+
+[dependencies]
+zstd = "0.13.3"
+qoicoubeh = "0.5.0"
