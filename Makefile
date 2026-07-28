@@ -48,8 +48,8 @@ ensure-llvm:
 else ifeq ($(HOST_OS),windows)
 LLVM_DIR=$(shell vswhere.exe -latest -requires Microsoft.VisualStudio.Component.VC.Llvm.Clang -property installationPath)
 unexport LLVM_DIR
-build-ironrdp-wasm: override CC = $(LLVM_DIR)/VC/Tools/Llvm/x64/bin/clang
-build-ironrdp-wasm: override AR = $(LLVM_DIR)/VC/Tools/Llvm/x64/bin/llvm-ar
+#build-ironrdp-wasm: override CC = $(LLVM_DIR)/VC/Tools/Llvm/x64/bin/clang
+#build-ironrdp-wasm: override AR = $(LLVM_DIR)/VC/Tools/Llvm/x64/bin/llvm-ar
 
 ensure-llvm:
 	@echo "ensure-llvm windows"
